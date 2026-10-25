@@ -4,7 +4,7 @@ The web and API are independently deployable services in one repository. The pub
 
 ## Railway (or equivalent Docker hosting)
 
-Create three services: **web**, **api**, **PostgreSQL**. Use repository root as the build context for both apps, selecting `apps/web/Dockerfile` and `apps/api/Dockerfile` respectively. The Docker Engine was unavailable on the authoring machine, so image builds need to be run on your Docker host/CI; local Python tests and the Next production build are verified separately.
+Create three services: **web**, **api**, **PostgreSQL**. Use repository root as the build context for both apps, selecting `apps/web/Dockerfile` and `apps/api/Dockerfile` respectively. Both images and the full local Compose startup have been verified, with 30 backend tests passing inside Docker against PostgreSQL 17.11. Public HTTPS and production configuration still require deployment verification.
 
 API environment:
 
