@@ -6,6 +6,10 @@ The web and API are independently deployable services in one repository. The pub
 
 Create three services: **web**, **api**, **PostgreSQL**. Use repository root as the build context for both apps, selecting `apps/web/Dockerfile` and `apps/api/Dockerfile` respectively. Both images and the full local Compose startup have been verified, with 30 backend tests passing inside Docker against PostgreSQL 17.11. Public HTTPS and production configuration still require deployment verification.
 
+For Railway, set the API service's custom config path to `/apps/api/railway.json` and the web service's to `/apps/web/railway.json`. Keep both root directories at the repository root. The configs select the Dockerfiles, scope watched files and enable readiness checks. The API config also runs migrations before each release. `.railwayignore` excludes local secrets, credentials, caches and the previous presentation from CLI uploads.
+
+Deploy PostgreSQL first, then the API, then the web service. Wire API `DATABASE_URL` to `${{Postgres.DATABASE_URL}}` (matching the actual database service name) and web `API_INTERNAL_URL` to `http://${{api.RAILWAY_PRIVATE_DOMAIN}}:8000`. Set API `PORT=8000` and web `PORT=3000`. Generate only a web public domain. Include the API private hostname and Railway's `healthcheck.railway.app` hostname in `DJANGO_ALLOWED_HOSTS`, and the final HTTPS web origin in `CSRF_TRUSTED_ORIGINS`. Generate a new production Django secret; never reuse the local `.env`.
+
 API environment:
 
 ```text
