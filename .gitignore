@@ -1,0 +1,20 @@
+.env
+.env.*
+!.env.example
+.venv/
+node_modules/
+.next/
+__pycache__/
+*.pyc
+*.sqlite3
+staticfiles/
+.coverage
+.pytest_cache/
+.local/
+.ruff_cache/
+*.tsbuildinfo
+.DS_Store
+
+# Existing separately hosted design repository and generated screenshots
+magribi-concepts/
+previews/

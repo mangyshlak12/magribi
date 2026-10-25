@@ -1,0 +1,18 @@
+{
+  "name": "magribi",
+  "private": true,
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @magribi/web",
+    "build": "npm run build -w @magribi/web",
+    "typecheck": "npm run typecheck -w @magribi/web"
+  },
+  "engines": {
+    "node": ">=20.9"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}

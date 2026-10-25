@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="34" viewBox="0 0 144 34">
+<defs><g id="flower"><path d="M0 0C-6-4-5-10 0-12C5-10 6-4 0 0Z"/><path d="M0 0C-6-4-5-10 0-12C5-10 6-4 0 0Z" transform="rotate(45)"/><path d="M0 0C-6-4-5-10 0-12C5-10 6-4 0 0Z" transform="rotate(90)"/><path d="M0 0C-6-4-5-10 0-12C5-10 6-4 0 0Z" transform="rotate(135)"/><path d="M0 0C-6-4-5-10 0-12C5-10 6-4 0 0Z" transform="rotate(180)"/><path d="M0 0C-6-4-5-10 0-12C5-10 6-4 0 0Z" transform="rotate(225)"/><path d="M0 0C-6-4-5-10 0-12C5-10 6-4 0 0Z" transform="rotate(270)"/><path d="M0 0C-6-4-5-10 0-12C5-10 6-4 0 0Z" transform="rotate(315)"/><circle r="2.2" fill="#f7efd9"/></g></defs>
+<g fill="none" stroke="#bd994d" stroke-width=".8" stroke-linecap="round" stroke-linejoin="round">
+<path d="M0 17C10 17 13 4 22 6C28 7 27 14 24 17C27 20 28 27 22 28C13 30 10 17 0 17ZM48 17C45 14 44 7 50 6C59 4 62 17 72 17C82 17 85 4 94 6C100 7 99 14 96 17C99 20 100 27 94 28C85 30 82 17 72 17C62 17 59 30 50 28C44 27 45 20 48 17ZM120 17C117 14 116 7 122 6C131 4 134 17 144 17C134 17 131 30 122 28C116 27 117 20 120 17Z" opacity=".75"/>
+<use href="#flower" x="36" y="17"/><use href="#flower" x="108" y="17"/>
+<path d="m0 11 2 4 4 2-4 2-2 4-2-4-4-2 4-2Zm72 0 2 4 4 2-4 2-2 4-2-4-4-2 4-2Zm72 0 2 4 4 2-4 2-2 4-2-4-4-2 4-2Z"/>
+<g fill="#bd994d" stroke="none"><circle cx="72" cy="4" r=".9"/><circle cx="72" cy="30" r=".9"/><circle cx="0" cy="4" r=".9"/><circle cx="0" cy="30" r=".9"/><circle cx="144" cy="4" r=".9"/><circle cx="144" cy="30" r=".9"/></g>
+</g></svg>

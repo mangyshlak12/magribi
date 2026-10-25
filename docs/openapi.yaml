@@ -1,0 +1,756 @@
+openapi: 3.0.3
+info:
+  title: Magribi API
+  version: 1.0.0
+paths:
+  /api/auth/logout/:
+    post:
+      operationId: auth_logout_create
+      tags:
+      - auth
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkOutput'
+          description: ''
+  /api/auth/me/:
+    get:
+      operationId: auth_me_retrieve
+      tags:
+      - auth
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffOutput'
+          description: ''
+  /api/cards/:
+    post:
+      operationId: cards_create
+      tags:
+      - cards
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenInput'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardOutput'
+          description: ''
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardOutput'
+          description: ''
+  /api/cards/current/:
+    get:
+      operationId: cards_current_retrieve
+      tags:
+      - cards
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardOutput'
+          description: ''
+  /api/cards/history/:
+    get:
+      operationId: cards_history_retrieve
+      tags:
+      - cards
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoryOutput'
+          description: ''
+  /api/manager/branches/:
+    get:
+      operationId: manager_branches_list
+      tags:
+      - manager
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchOutput'
+          description: ''
+    post:
+      operationId: manager_branches_create
+      tags:
+      - manager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BranchInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BranchInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BranchInput'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchOutput'
+          description: ''
+  /api/manager/operations/{operation_id}/reverse/:
+    post:
+      operationId: manager_operations_reverse_create
+      parameters:
+      - in: path
+        name: operation_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - manager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReversalInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReversalInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReversalInput'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MutationOutput'
+          description: ''
+  /api/manager/staff/:
+    get:
+      operationId: manager_staff_list
+      tags:
+      - manager
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StaffOutput'
+          description: ''
+    post:
+      operationId: manager_staff_create
+      tags:
+      - manager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StaffInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StaffInput'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffOutput'
+          description: ''
+  /api/manager/staff/{user_id}/:
+    patch:
+      operationId: manager_staff_partial_update
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - manager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStaffStatusInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStaffStatusInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStaffStatusInput'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffOutput'
+          description: ''
+  /api/manager/summary/:
+    get:
+      operationId: manager_summary_retrieve
+      tags:
+      - manager
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SummaryOutput'
+          description: ''
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/staff/lookup/:
+    post:
+      operationId: staff_lookup_create
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenInput'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardOutput'
+          description: ''
+  /api/staff/operations/:
+    get:
+      operationId: staff_operations_retrieve
+      tags:
+      - staff
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoryOutput'
+          description: ''
+  /api/staff/purchase/:
+    post:
+      operationId: staff_purchase_create
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TransactionInput'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MutationOutput'
+          description: ''
+  /api/staff/redeem/:
+    post:
+      operationId: staff_redeem_create
+      tags:
+      - staff
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TransactionInput'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MutationOutput'
+          description: ''
+components:
+  schemas:
+    BranchInput:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        address:
+          type: string
+          default: ''
+          maxLength: 200
+      required:
+      - name
+    BranchOutput:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        address:
+          type: string
+        is_active:
+          type: boolean
+      required:
+      - address
+      - id
+      - is_active
+      - name
+    CardOutput:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        stamps:
+          type: integer
+        rewards:
+          type: integer
+        paid_units:
+          type: integer
+        redeemed_units:
+          type: integer
+      required:
+      - id
+      - paid_units
+      - redeemed_units
+      - rewards
+      - stamps
+    HistoryOutput:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationOutput'
+        page:
+          type: integer
+        has_more:
+          type: boolean
+      required:
+      - has_more
+      - items
+      - page
+    KindEnum:
+      enum:
+      - purchase
+      - redeem
+      - reversal
+      type: string
+      description: |-
+        * `purchase` - purchase
+        * `redeem` - redeem
+        * `reversal` - reversal
+    MutationOutput:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        operation:
+          $ref: '#/components/schemas/OperationOutput'
+        card:
+          $ref: '#/components/schemas/CardOutput'
+      required:
+      - ok
+      - operation
+    OkOutput:
+      type: object
+      properties:
+        ok:
+          type: boolean
+      required:
+      - ok
+    OperationOutput:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        card_id:
+          type: string
+          format: uuid
+        kind:
+          $ref: '#/components/schemas/KindEnum'
+        quantity:
+          type: integer
+        paid_delta:
+          type: integer
+        redeemed_delta:
+          type: integer
+        actor:
+          type: string
+        branch:
+          type: string
+        reason:
+          type: string
+        reverses:
+          type: string
+          format: uuid
+          nullable: true
+        reversed:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - branch
+      - created_at
+      - id
+      - kind
+      - paid_delta
+      - quantity
+      - redeemed_delta
+      - reversed
+      - reverses
+    PatchedStaffStatusInput:
+      type: object
+      properties:
+        is_active:
+          type: boolean
+    ReversalInput:
+      type: object
+      properties:
+        reason:
+          type: string
+          maxLength: 500
+          minLength: 5
+        request_key:
+          type: string
+          format: uuid
+      required:
+      - reason
+      - request_key
+    RoleEnum:
+      enum:
+      - cashier
+      - manager
+      type: string
+      description: |-
+        * `cashier` - cashier
+        * `manager` - manager
+    StaffInput:
+      type: object
+      properties:
+        username:
+          type: string
+          pattern: ^[a-zA-Z0-9_.-]{3,80}$
+        name:
+          type: string
+          maxLength: 100
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+        role:
+          allOf:
+          - $ref: '#/components/schemas/RoleEnum'
+          default: cashier
+        branch_id:
+          type: string
+          format: uuid
+      required:
+      - branch_id
+      - name
+      - password
+      - username
+    StaffOutput:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        name:
+          type: string
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        is_active:
+          type: boolean
+        branch_id:
+          type: string
+          format: uuid
+          nullable: true
+        branch:
+          type: string
+          nullable: true
+      required:
+      - branch
+      - branch_id
+      - id
+      - is_active
+      - name
+      - role
+      - username
+    SummaryOutput:
+      type: object
+      properties:
+        cards:
+          type: integer
+        paid_units:
+          type: integer
+        redeemed_units:
+          type: integer
+        operations:
+          type: integer
+        cashiers:
+          type: integer
+      required:
+      - cards
+      - cashiers
+      - operations
+      - paid_units
+      - redeemed_units
+    TokenInput:
+      type: object
+      properties:
+        token:
+          type: string
+          pattern: ^[A-Za-z0-9_-]{43}$
+      required:
+      - token
+    TransactionInput:
+      type: object
+      properties:
+        card_id:
+          type: string
+          format: uuid
+        quantity:
+          type: integer
+          maximum: 100
+          minimum: 1
+        request_key:
+          type: string
+          format: uuid
+      required:
+      - card_id
+      - quantity
+      - request_key
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: magribi_session
